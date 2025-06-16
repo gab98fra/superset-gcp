@@ -52,7 +52,19 @@ gcloud artifacts repositories create superset \
    - Contraseña: `password`
    - Conexión: `up-computo:us-central1:superset`
 
-5. Crear una **Service Account** con el rol `Cloud SQL Client`, exportar la credencial generada `credentials.json`
+5. Crear un clúster en GKE:
+
+```bash
+gcloud container clusters create superset-cluster \
+  --zone us-central1-c \
+  --num-nodes 3 \
+  --enable-ip-alias
+
+gcloud container clusters get-credentials superset-cluster --zone us-central1-c
+
+```
+
+6. Crear una **Service Account** con el rol `Cloud SQL Client`, exportar la credencial generada `credentials.json`
 
 ```bash
 kubectl create secret generic cloudsql-instance-credentials \
