@@ -10,7 +10,7 @@ Este repositorio contiene la configuración completa para desplegar [Apache Supe
 
 ---
 
-## 🌐 Servicios de GCP utilizados
+##  Servicios de GCP utilizados
 
 | Servicio | Descripción |
 |----------|-------------|
@@ -75,7 +75,7 @@ kubectl create secret generic cloudsql-instance-credentials \
 
 ---
 
-## 🚀 Construcción de la imagen personalizada
+##  Construcción de la imagen personalizada
 
 ### Dockerfile
 
@@ -96,7 +96,7 @@ docker push us-central1-docker.pkg.dev/up-computo/superset/superset:latest
 
 ---
 
-## 🚧 Archivos Kubernetes
+##  Archivos Kubernetes
 
 ### 1. `superset-configmap.yaml`
 
@@ -194,7 +194,7 @@ spec:
 
 ---
 
-## 🤖 Desplegar todo en GKE
+##  Desplegar todo en GKE
 
 ```bash
 kubectl create namespace superset
@@ -205,7 +205,7 @@ kubectl apply -f superset-service.yaml
 
 ---
 
-## 🎯 Acceder a Superset
+##  Acceder a Superset
 
 ```bash
 kubectl get svc -n superset
