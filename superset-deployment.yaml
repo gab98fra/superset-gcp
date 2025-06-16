@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: superset-deployment
+  namespace: superset
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: superset
+  template:
+    metadata:
+      labels:
+        app: superset
+    spec:
+      containers:
+      - name: superset
+        image: us-central1-docker.pkg.dev/up-computo/superset/superset:latest
+        ports:
+        - containerPort: 8088
+        env:
+        - name: SUPERSET_SECRET_KEY
+          value: "mysecretkey"
+        - name: SQLALCHEMY_DATABASE_URI
+          value: postgresql+psycopg2://<usuario>:<password>@127.0.0.1:5432/superset
+        command: ["/bin/sh", "-c"]
+        args:
+          - >
+            superset db upgrade &&
+            superset fab create-admin               --username admin               --firstname Superset               --lastname Admin               --email admin@example.com               --password admin &&
+            superset init &&
+            superset run -h 0.0.0.0 -p 8088
+        volumeMounts:
+        - name: superset-config
+          mountPath: /app/pythonpath/superset_config.py
+          subPath: superset_config.py
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.33.1
+        command:
+          - "/cloud_sql_proxy"
+          - "-instances=up-computo:us-central1:superset=tcp:5432"
+          - "-credential_file=/secrets/cloudsql/credentials.json"
+        volumeMounts:
+        - name: cloudsql-instance-credentials
+          mountPath: /secrets/cloudsql
+          readOnly: true
+      volumes:
+      - name: cloudsql-instance-credentials
+        secret:
+          secretName: cloudsql-instance-credentials
+      - name: superset-config
+        configMap:
+          name: superset-config
