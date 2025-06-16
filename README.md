@@ -63,8 +63,13 @@ gcloud container clusters create superset-cluster \
 gcloud container clusters get-credentials superset-cluster --zone us-central1-c
 
 ```
+6. Crear un NS en el clúster generado
 
-6. Crear una **Service Account** con el rol `Cloud SQL Client`, exportar la credencial generada `credentials.json`
+```bash
+kubectl create namespace superset
+```
+
+7. Crear una **Service Account** con el rol `Cloud SQL Client`, exportar la credencial generada `credentials.json`
 
 ```bash
 kubectl create secret generic cloudsql-instance-credentials \
