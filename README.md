@@ -52,7 +52,7 @@ gcloud artifacts repositories create superset \
    - Contraseña: `password`
    - Conexión: `up-computo:us-central1:superset`
 
-5. Crear una **Service Account** con el rol `Cloud SQL Client`, exportar su `credentials.json`
+5. Crear una **Service Account** con el rol `Cloud SQL Client`, exportar la credencial generada `credentials.json`
 
 ```bash
 kubectl create secret generic cloudsql-instance-credentials \
@@ -211,7 +211,7 @@ kubectl apply -f superset-service.yaml
 kubectl get svc -n superset
 ```
 
-Abre en tu navegador: `http://<EXTERNAL-IP>`
+Abrir el navegador: `http://<EXTERNAL-IP>`
 
 - Usuario: `admin`
 - Contraseña: `admin`
