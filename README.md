@@ -20,7 +20,7 @@ Este repositorio contiene la configuración completa para desplegar [Apache Supe
 | Artifact Registry | Almacenamiento de la imagen personalizada de Superset |
 | IAM (Service Account) | Acceso autenticado al proxy |
 | Kubernetes Secrets | Manejo seguro del `credentials.json` |
-| ConfigMaps | Montaje de configuraciones personalizadas (como `superset_config.py`) |
+| ConfigMaps | Montaje de configuraciones personalizadas (`superset_config.py`) |
 
 ---
 
